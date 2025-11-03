@@ -45,19 +45,19 @@ def dbscan_dynamic_demand(X, avg_order_qty, eps, min_pts, min_demand, max_demand
     return cluster_labels
 
 # 读入数据
-df = pd.read_csv(r'F:\distribution classification\cluster_1.csv')
+df = pd.read_csv(r'F:\distribution classification\cluster_0.csv')
 features = df[['longitude', 'latitude']].values
 avg_order_qty = df['avg_order_qty'].values
 
 # 参数设置
-eps = 0.003            # 距离阈值, 可根据数据分布调整
-min_pts = 20          # 最小核心点邻居数
+eps = 0.01            # 距离阈值, 可根据数据分布调整
+min_pts = 30          # 最小核心点邻居数
 min_demand = 2500    # 最小累计需求量
 max_demand = 3000    # 最大累计需求量
 
 labels = dbscan_dynamic_demand(features, avg_order_qty, eps, min_pts, min_demand, max_demand)
 df['cluster'] = labels
-df.to_csv(r'F:\distribution classification\cluster_1_result.csv', index=False)
+df.to_csv(r'F:\distribution classification\cluster_0_result.csv', index=False)
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -66,7 +66,7 @@ import matplotlib.pyplot as plt
 plt.rcParams["font.family"] = ["SimHei", "WenQuanYi Micro Hei", "Heiti TC"]
 
 # 读取带聚类标签的数据
-df = pd.read_csv(r'F:\distribution classification\cluster_1_result.csv')
+df = pd.read_csv(r'F:\distribution classification\cluster_0_result.csv')
 
 # 可视化优化：缩小点大小、提高颜色差异、增加透明度
 plt.figure(figsize=(10, 8))
@@ -80,7 +80,7 @@ scatter = plt.scatter(
 )
 plt.xlabel('经度')
 plt.ylabel('纬度')
-plt.title('DBSCAN聚类结果可视化（优化后）')
+plt.title('DBSCAN聚类结果可视化')
 plt.colorbar(scatter, label='聚类标签')
 plt.grid(linestyle='--', alpha=0.3)
 plt.tight_layout()
